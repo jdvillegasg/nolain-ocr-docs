@@ -1,0 +1,3813 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for Nolain Ocr">
+      
+      
+      
+      
+        <link rel="prev" href="../../api/supabase_client/">
+      
+      
+        <link rel="next" href="../data-flow/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Backend Components Architecture - Nolain Ocr</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#backend-components-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Nolain Ocr" class="md-header__button md-logo" aria-label="Nolain Ocr" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nolain Ocr
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Backend Components Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Nolain Ocr" class="md-nav__button md-logo" aria-label="Nolain Ocr" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Nolain Ocr
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nolain OCR Documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adding-blog-posts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding a New Blog Post
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend_api_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nolain OCR Backend API Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reuse-auth-stripe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reuse Auth and Stripe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Alternatives
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Alternatives
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../alternatives/async-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Async Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../alternatives/extraction-approaches/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extraction Approaches
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../alternatives/frontend-state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend State Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../alternatives/storage-options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Storage Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Api
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Api
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.api.api_v1.api`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/auth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.api.api_v1.endpoints.auth`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/auth_service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.services.auth_service`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/celery_app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.core.celery_app`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/clients/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.core.clients`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.core.config`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/document_service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.services.document_service`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/documents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.api.api_v1.endpoints.documents`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/extraction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.tasks.extraction`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/flatted/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `frontend.node_modules.flatted.python.flatted`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/health/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.api.api_v1.endpoints.health`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/main/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.main`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/payment_service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.services.payment_service`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/payments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.api.api_v1.endpoints.payments`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.data_pipeline.processing`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/redis_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.core.redis_client`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.api.api_v1.endpoints.sse`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/statistics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.api.api_v1.endpoints.statistics`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/statistics_service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.services.statistics_service`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.data_pipeline.storage`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/supabase_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.data_pipeline.supabase_client`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend Components Architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend Components Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#component-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component Diagram
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layer-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layer Breakdown
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Layer Breakdown">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-api-layer-apiapi_v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. API Layer (api/api_v1/)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. API Layer (api/api_v1/)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#main-router-apipy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Router (api.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Endpoint Modules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auth-dependencies-dependenciesauthpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auth Dependencies (dependencies/auth.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-service-layer-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Service Layer (services/)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Service Layer (services/)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auth_servicepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        auth_service.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upload_servicepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        upload_service.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extraction_servicepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        extraction_service.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export_servicepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        export_service.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#payment_servicepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        payment_service.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#page_billing_servicepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        page_billing_service.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#billing_servicepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        billing_service.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-data-pipeline-data_pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Data Pipeline (data_pipeline/)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Data Pipeline (data_pipeline/)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extraction_pipelinepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        extraction_pipeline.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key_standardizationpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        key_standardization.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#type_conversionpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        type_conversion.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file_utilspy-image_utilspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        file_utils.py / image_utils.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storagepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        storage.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supabase_clientpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        supabase_client.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-background-tasks-tasksextractionpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Background Tasks (tasks/extraction.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-core-infrastructure-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Core Infrastructure (core/)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Core Infrastructure (core/)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        config.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#celery_apppy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        celery_app.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis_clientpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        redis_client.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clientspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        clients.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-layout-module-layout-experimental" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Layout Module (layout/) — Experimental
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#request-flow-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request Flow Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Request Flow Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-single-image-extraction-synchronous" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Single Image Extraction (Synchronous)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-multi-image-extraction-async" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Multi-Image Extraction (Async)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-design-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Design Patterns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related Documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Flow Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../frontend-components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend Components Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../infrastructure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infrastructure Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assumptions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Assumptions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assumptions/data-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Model Assumptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assumptions/subscription-limits/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subscription Limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assumptions/traffic-and-scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Traffic and Scaling Assumptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assumptions/user-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Workflow Assumptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functionality
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Functionality
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../functionality/async-task-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous Task Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../functionality/authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication Functionality
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../functionality/batch-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Batch Processing with Mistral AI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../functionality/document-extraction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Document Extraction Functionality
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../functionality/file-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Management Functionality
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../functionality/historical-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Historical Data Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../functionality/subscription-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stripe Integration & Billing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quickstart Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart Guides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quickstart/local-docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart: Local Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quickstart/local-terminal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart: Local Terminal (Linux/Conda)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quickstart/vps-production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart: VPS Production (Docker)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reuse Auth Stripe
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reuse Auth Stripe
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reuse-auth-stripe/copy-and-adapt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Copy and Adapt the Auth and Billing Code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reuse-auth-stripe/one-time-credits/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optional: Add One-Time Credits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reuse-auth-stripe/stripe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configure Stripe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reuse-auth-stripe/supabase-google/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configure Supabase and Google Authentication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reuse-auth-stripe/testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test the Auth and Stripe Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setups
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Setups
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_12_1" id="__nav_12_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_12_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    External
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setups/external/email-verification-supabase/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Email Verification Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setups/external/mistral-ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mistral AI Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setups/external/password-reset-supabase/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Password Reset Setup Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setups/external/stripe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stripe Setup Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setups/external/supabase-database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Supabase Database Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_12_2" id="__nav_12_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Internal
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_12_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Internal
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setups/internal/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker Setup Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setups/internal/domain-ssl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Domain and SSL Setup Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setups/internal/environment-switching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local vs Production Testing Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setups/internal/local-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local Development Setup (Non-Docker)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setups/internal/nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx Configuration Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#component-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component Diagram
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layer-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layer Breakdown
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Layer Breakdown">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-api-layer-apiapi_v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. API Layer (api/api_v1/)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. API Layer (api/api_v1/)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#main-router-apipy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Router (api.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Endpoint Modules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auth-dependencies-dependenciesauthpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auth Dependencies (dependencies/auth.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-service-layer-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Service Layer (services/)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Service Layer (services/)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auth_servicepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        auth_service.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upload_servicepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        upload_service.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extraction_servicepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        extraction_service.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export_servicepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        export_service.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#payment_servicepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        payment_service.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#page_billing_servicepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        page_billing_service.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#billing_servicepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        billing_service.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-data-pipeline-data_pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Data Pipeline (data_pipeline/)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Data Pipeline (data_pipeline/)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extraction_pipelinepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        extraction_pipeline.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key_standardizationpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        key_standardization.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#type_conversionpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        type_conversion.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file_utilspy-image_utilspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        file_utils.py / image_utils.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storagepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        storage.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supabase_clientpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        supabase_client.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-background-tasks-tasksextractionpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Background Tasks (tasks/extraction.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-core-infrastructure-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Core Infrastructure (core/)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Core Infrastructure (core/)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        config.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#celery_apppy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        celery_app.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis_clientpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        redis_client.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clientspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        clients.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-layout-module-layout-experimental" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Layout Module (layout/) — Experimental
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#request-flow-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request Flow Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Request Flow Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-single-image-extraction-synchronous" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Single Image Extraction (Synchronous)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-multi-image-extraction-async" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Multi-Image Extraction (Async)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-design-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Design Patterns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related Documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="backend-components-architecture">Backend Components Architecture</h1>
+<p>This document details the backend architecture, component breakdown, and how different parts of the Python backend interact.</p>
+<h2 id="component-diagram">Component Diagram</h2>
+<pre><code class="language-mermaid">graph TB
+    subgraph api [API Layer]
+        Router[API Router&lt;br/&gt;api/api_v1/api.py]
+        HealthEndpoint[health.py]
+        AuthEndpoint[auth.py]
+        DocsEndpoint[documents.py]
+        PaymentsEndpoint[payments.py]
+        TopupEndpoint[topup_billing.py]
+        SSEEndpoint[sse.py]
+    end
+
+    subgraph services [Service Layer]
+        AuthService[auth_service.py]
+        UploadService[upload_service.py]
+        ExtractionService[extraction_service.py]
+        ExportService[export_service.py]
+        PaymentService[payment_service.py]
+        PageBillingService[page_billing_service.py]
+        BillingService[billing_service.py]
+    end
+
+    subgraph pipeline [Data Pipeline]
+        ExtractionPipeline[extraction_pipeline.py&lt;br/&gt;Mistral AI calls]
+        KeyStandardization[key_standardization.py&lt;br/&gt;Schema + key matching]
+        TypeConversion[type_conversion.py]
+        FileUtils[file_utils.py / image_utils.py]
+        Storage[storage.py&lt;br/&gt;Excel/CSV export]
+        SupabaseClient[supabase_client.py&lt;br/&gt;Database operations]
+    end
+
+    subgraph tasks [Background Tasks]
+        ExtractionTask[tasks/extraction.py&lt;br/&gt;Celery Tasks]
+    end
+
+    subgraph core [Core Infrastructure]
+        Config[config.py&lt;br/&gt;Settings]
+        CeleryApp[celery_app.py&lt;br/&gt;Task Queue]
+        RedisClient[redis_client.py&lt;br/&gt;Pub/Sub]
+        Clients[clients.py&lt;br/&gt;Mistral AI]
+    end
+
+    Router --&gt; HealthEndpoint
+    Router --&gt; AuthEndpoint
+    Router --&gt; DocsEndpoint
+    Router --&gt; PaymentsEndpoint
+    Router --&gt; TopupEndpoint
+    Router --&gt; SSEEndpoint
+
+    AuthEndpoint --&gt; AuthService
+    DocsEndpoint --&gt; UploadService
+    DocsEndpoint --&gt; ExtractionService
+    DocsEndpoint --&gt; ExportService
+    PaymentsEndpoint --&gt; PaymentService
+    TopupEndpoint --&gt; PaymentService
+    SSEEndpoint --&gt; RedisClient
+
+    AuthService --&gt; SupabaseClient
+    UploadService --&gt; FileUtils
+    UploadService --&gt; SupabaseClient
+    ExtractionService --&gt; ExtractionPipeline
+    ExtractionService --&gt; CeleryApp
+    ExtractionService --&gt; PageBillingService
+    ExportService --&gt; Storage
+    PaymentService --&gt; SupabaseClient
+    PageBillingService --&gt; SupabaseClient
+
+    ExtractionPipeline --&gt; Clients
+    ExtractionPipeline --&gt; KeyStandardization
+    ExtractionPipeline --&gt; TypeConversion
+
+    ExtractionTask --&gt; ExtractionPipeline
+    ExtractionTask --&gt; RedisClient
+    ExtractionTask --&gt; PageBillingService
+
+    CeleryApp --&gt; RedisClient
+</code></pre>
+<h2 id="layer-breakdown">Layer Breakdown</h2>
+<h3 id="1-api-layer-apiapi_v1">1. API Layer (<code>api/api_v1/</code>)</h3>
+<p>Entry point for all HTTP requests. The backend has <strong>no <code>/api</code> prefix</strong> — nginx strips <code>/api</code> before forwarding. <code>API_V1_STR</code> in config is empty.</p>
+<h4 id="main-router-apipy">Main Router (<code>api.py</code>)</h4>
+<pre><code class="language-python">api_router.include_router(health.router, tags=[&quot;health&quot;])
+api_router.include_router(auth.router, tags=[&quot;auth&quot;])
+api_router.include_router(documents.router, tags=[&quot;documents&quot;])
+api_router.include_router(payments.router, tags=[&quot;payments&quot;])
+api_router.include_router(topup_billing.router, tags=[&quot;topup-billing&quot;])
+api_router.include_router(sse.router, tags=[&quot;sse&quot;])
+</code></pre>
+<h4 id="endpoint-modules">Endpoint Modules</h4>
+<p><strong><code>health.py</code></strong>
+- <code>GET /</code> - Health check</p>
+<p><strong><code>auth.py</code></strong> - Authentication &amp; User Management
+- <code>POST /login</code> - Email/password login
+- <code>POST /register</code> - User registration
+- <code>GET /auth/google</code> - Google OAuth redirect URL
+- <code>POST /auth/session</code> - Verify OAuth tokens after callback
+- <code>POST /logout</code> - Logout and file cleanup (auth required)
+- <code>POST /reset-password</code> - Request password reset
+- <code>POST /update-password</code> - Update password with recovery tokens</p>
+<p><strong><code>documents.py</code></strong> - Document Processing
+- <code>POST /upload_pdf</code> - Upload PDF(s), convert to page images
+- <code>POST /upload_image</code> - Upload image file(s)
+- <code>GET /get_page_image/{folder_id}/{page_number}</code> - Preview pages
+- <code>POST /extract_image</code> - Synchronous single-image extraction
+- <code>POST /extract_multiple_images</code> - Async batch extraction (returns <code>task_id</code>)
+- <code>POST /export_current_data</code> - Export current table data as Excel or CSV</p>
+<p><strong><code>payments.py</code></strong> - Subscription Management
+- <code>POST /create-checkout-session</code> - Start Stripe subscription checkout
+- <code>POST /webhook</code> - Stripe webhook handler
+- <code>GET /subscription-limits</code> - Plan limits for all tiers
+- <code>GET /subscription-status</code> - Current plan, usage, top-up balance (auth required)
+- <code>POST /cancel-subscription</code> - Cancel at period end (auth required)
+- <code>POST /create-billing-portal-session</code> - Stripe Customer Portal (auth required)
+- <code>POST /update-subscription</code> - Upgrade/downgrade plan (auth required)</p>
+<p><strong><code>topup_billing.py</code></strong> - One-time Page Packs
+- <code>GET /topup-packs</code> - Catalog of available top-up packs
+- <code>POST /create-topup-checkout</code> - Start Stripe checkout for page credits
+- <code>POST /confirm-topup-checkout</code> - Confirm paid session and credit pages</p>
+<p><strong><code>sse.py</code></strong> - Real-time Updates
+- <code>GET /stream/{task_id}</code> - SSE stream for Celery extraction progress</p>
+<h4 id="auth-dependencies-dependenciesauthpy">Auth Dependencies (<code>dependencies/auth.py</code>)</h4>
+<p>Protected endpoints require one of:
+- <code>X-Access-Token</code> header (Supabase JWT — preferred)
+- <code>X-User-Id</code> header (fallback)</p>
+<p>Returns <code>AuthContext</code> with <code>user</code> and <code>method: "session"</code>.</p>
+<h3 id="2-service-layer-services">2. Service Layer (<code>services/</code>)</h3>
+<p>Business logic layer. Separates API concerns from implementation.</p>
+<h4 id="auth_servicepy"><code>auth_service.py</code></h4>
+<ul>
+<li>User registration and login via Supabase Auth</li>
+<li>Google OAuth URL generation and session verification</li>
+<li>Password reset and update flows</li>
+<li>Logout with upload file cleanup</li>
+</ul>
+<h4 id="upload_servicepy"><code>upload_service.py</code></h4>
+<ul>
+<li>PDF and image upload handling</li>
+<li>PDF to JPEG conversion (pdf2image/Poppler)</li>
+<li>Page limit validation before upload</li>
+<li>Page image serving for preview</li>
+<li>Tracks file paths in <code>user_sessions</code> table</li>
+</ul>
+<h4 id="extraction_servicepy"><code>extraction_service.py</code></h4>
+<ul>
+<li><strong>Single image</strong>: synchronous Mistral vision extraction in the API process</li>
+<li><strong>Multiple images</strong>: queues Celery task, returns <code>task_id</code> immediately</li>
+<li>Template grouping (combine up to 4 pages per document)</li>
+<li>Schema extraction from first page, then batch processing of remaining pages</li>
+</ul>
+<h4 id="export_servicepy"><code>export_service.py</code></h4>
+<ul>
+<li>Excel and CSV export from current extraction table data</li>
+<li>Background task cleanup of temporary export files</li>
+</ul>
+<h4 id="payment_servicepy"><code>payment_service.py</code></h4>
+<ul>
+<li>Stripe checkout session creation (subscriptions and top-ups)</li>
+<li>Subscription status, cancellation, plan changes</li>
+<li>Billing portal access</li>
+<li>Webhook event processing</li>
+</ul>
+<p><strong>Webhook Events Handled:</strong>
+- <code>checkout.session.completed</code> - Create subscription or credit top-up pages
+- <code>customer.subscription.updated</code> - Update subscription
+- <code>customer.subscription.deleted</code> - Cancel subscription
+- <code>invoice.payment_succeeded</code> - Reset monthly usage counter</p>
+<h4 id="page_billing_servicepy"><code>page_billing_service.py</code></h4>
+<ul>
+<li>Bills processed pages after extraction completes</li>
+<li>Priority: monthly plan quota first, then top-up credits</li>
+<li>Returns 402 if both pools exhausted</li>
+<li>Admin users (<code>ADMIN_USER_ID</code>) bypass limits</li>
+</ul>
+<h4 id="billing_servicepy"><code>billing_service.py</code></h4>
+<ul>
+<li>Billing mode helpers (subscription + top-up can coexist)</li>
+</ul>
+<h3 id="3-data-pipeline-data_pipeline">3. Data Pipeline (<code>data_pipeline/</code>)</h3>
+<h4 id="extraction_pipelinepy"><code>extraction_pipeline.py</code></h4>
+<ul>
+<li>Mistral AI vision API calls (single and batch)</li>
+<li>Parallel async extraction for &lt;50 images</li>
+<li>Mistral Batch API for ≥50 images</li>
+<li>JSON parsing and schema enforcement</li>
+</ul>
+<h4 id="key_standardizationpy"><code>key_standardization.py</code></h4>
+<ul>
+<li>Flatten nested dictionaries</li>
+<li>Key normalization (lowercase, underscores)</li>
+<li><code>extract_schema()</code> from first extraction result</li>
+<li>Sentence transformers (<code>all-MiniLM-L6-v2</code>) for key similarity matching</li>
+</ul>
+<h4 id="type_conversionpy"><code>type_conversion.py</code></h4>
+<ul>
+<li>String to number/date coercion for export</li>
+</ul>
+<h4 id="file_utilspy-image_utilspy"><code>file_utils.py</code> / <code>image_utils.py</code></h4>
+<ul>
+<li>PDF page counting and conversion</li>
+<li>Base64 image encoding</li>
+<li>Multi-page image combining (template groups)</li>
+</ul>
+<h4 id="storagepy"><code>storage.py</code></h4>
+<ul>
+<li>Excel generation (openpyxl)</li>
+<li>CSV generation</li>
+</ul>
+<h4 id="supabase_clientpy"><code>supabase_client.py</code></h4>
+<ul>
+<li>All database operations (subscriptions, user_sessions, topup_credit_purchases)</li>
+<li>Three client modes: default (service role preferred), auth-only (anon key), billing client</li>
+</ul>
+<h3 id="4-background-tasks-tasksextractionpy">4. Background Tasks (<code>tasks/extraction.py</code>)</h3>
+<p><strong>Celery Task:</strong> <code>process_extraction_task</code></p>
+<p><strong>Flow:</strong>
+1. Publish "processing" status to Redis
+2. Load and group images (template_group support)
+3. Extract schema from first page
+4. Process remaining pages (parallel or batch API)
+5. Convert results to columnar format
+6. Bill processed pages via <code>page_billing_service</code>
+7. Publish "completed" or "failed" status with results</p>
+<h3 id="5-core-infrastructure-core">5. Core Infrastructure (<code>core/</code>)</h3>
+<h4 id="configpy"><code>config.py</code></h4>
+<p>Key settings: Supabase credentials, Mistral API key, Stripe keys/price IDs, subscription limits, Celery/Redis URLs, <code>FRONTEND_URL</code>, <code>ADMIN_USER_ID</code>.</p>
+<p><strong>Subscription Limits (backend defaults):</strong></p>
+<pre><code class="language-python">FREE_PAGES_PER_DOCUMENT = 3
+FREE_PAGES_PER_MONTH = 3
+PRO_PAGES_PER_DOCUMENT = 50
+PRO_PAGES_PER_MONTH = 1500
+PRO_PLUS_PAGES_PER_DOCUMENT = 200
+PRO_PLUS_PAGES_PER_MONTH = 10000
+</code></pre>
+<h4 id="celery_apppy"><code>celery_app.py</code></h4>
+<ul>
+<li>Broker and result backend: Redis</li>
+<li>Task discovery: <code>backend.tasks</code></li>
+<li>Serializer: JSON</li>
+</ul>
+<h4 id="redis_clientpy"><code>redis_client.py</code></h4>
+<ul>
+<li>Pub/Sub channels: <code>task_updates:{task_id}</code></li>
+</ul>
+<h4 id="clientspy"><code>clients.py</code></h4>
+<ul>
+<li>Singleton Mistral AI client</li>
+</ul>
+<h3 id="6-layout-module-layout-experimental">6. Layout Module (<code>layout/</code>) — Experimental</h3>
+<p>YOLO-based document layout detection. <strong>Not wired into the production extraction pipeline.</strong></p>
+<h2 id="request-flow-examples">Request Flow Examples</h2>
+<h3 id="example-1-single-image-extraction-synchronous">Example 1: Single Image Extraction (Synchronous)</h3>
+<pre><code>1. POST /extract_image (X-Access-Token header)
+   ↓
+2. ExtractionService.extract_image()
+   ↓
+3. extraction_pipeline: Mistral vision API call
+   ↓
+4. Flatten, normalize keys, convert types
+   ↓
+5. bill_processed_pages()
+   ↓
+6. Return extracted data
+</code></pre>
+<h3 id="example-2-multi-image-extraction-async">Example 2: Multi-Image Extraction (Async)</h3>
+<pre><code>1. POST /extract_multiple_images
+   ↓
+2. ExtractionService.extract_multiple_images()
+   ↓
+3. Queue Celery task → process_extraction_task()
+   ↓
+4. Return task_id immediately
+
+[Frontend connects to GET /stream/{task_id}]
+
+[Celery Worker]
+5. Extract schema from page 1
+6. Batch process remaining pages
+7. Bill pages, publish results to Redis
+8. Frontend receives via SSE
+</code></pre>
+<h2 id="key-design-patterns">Key Design Patterns</h2>
+<ol>
+<li><strong>Service Layer Pattern</strong>: Separates API from business logic</li>
+<li><strong>Singleton Pattern</strong>: Shared Mistral AI client</li>
+<li><strong>Repository Pattern</strong>: <code>supabase_client.py</code> abstracts database</li>
+<li><strong>Pub/Sub Pattern</strong>: Redis for real-time progress updates</li>
+<li><strong>Task Queue Pattern</strong>: Celery for long-running operations</li>
+<li><strong>Dual Billing Pool</strong>: Plan quota + top-up credits with priority ordering</li>
+</ol>
+<h2 id="related-documentation">Related Documentation</h2>
+<ul>
+<li><strong><a href="../system-overview/">System Overview</a></strong> - High-level architecture</li>
+<li><strong><a href="../data-flow/">Data Flow</a></strong> - End-to-end data flows</li>
+<li><strong><a href="../../functionality/document-extraction/">Functionality - Document Extraction</a></strong> - Extraction details</li>
+<li><strong><a href="../../functionality/async-task-processing/">Functionality - Async Processing</a></strong> - Celery details</li>
+<li><strong><a href="../../backend_api_usage/">Backend API Usage</a></strong> - API reference</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

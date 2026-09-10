@@ -1,0 +1,4299 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for Nolain Ocr">
+      
+      
+      
+      
+        <link rel="prev" href="../adding-blog-posts/">
+      
+      
+        <link rel="next" href="../reuse-auth-stripe/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Nolain OCR Backend API Usage - Nolain Ocr</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#nolain-ocr-backend-api-usage" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Nolain Ocr" class="md-header__button md-logo" aria-label="Nolain Ocr" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nolain Ocr
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Nolain OCR Backend API Usage
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Nolain Ocr" class="md-nav__button md-logo" aria-label="Nolain Ocr" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Nolain Ocr
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nolain OCR Documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adding-blog-posts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding a New Blog Post
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nolain OCR Backend API Usage
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nolain OCR Backend API Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#base-urls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base URLs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Endpoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#health-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Health Check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-user-registration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. User Registration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-user-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. User Login
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-google-oauth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Google OAuth
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-user-logout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. User Logout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-password-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Password Reset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-upload-pdf-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Upload PDF Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-upload-image-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Upload Image Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-extract-text-from-single-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Extract Text from Single Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-extract-multiple-images-async" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Extract Multiple Images (Async)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-get-page-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Get Page Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-export-current-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Export Current Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-get-subscription-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Get Subscription Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-get-subscription-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Get Subscription Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-create-checkout-session-subscription" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Create Checkout Session (Subscription)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-update-subscription" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Update Subscription
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-cancel-subscription" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Cancel Subscription
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-create-billing-portal-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Create Billing Portal Session
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-top-up-page-packs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Top-up Page Packs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19-stripe-webhook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Stripe Webhook
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20-sse-task-stream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. SSE Task Stream
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-endpoints-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API Endpoints Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#response-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Response Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#login-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Login Response
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upload-response-single-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Upload Response (single page)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upload-response-multi-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Upload Response (multi-page)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract-image-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extract Image Response
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract-multiple-images-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extract Multiple Images Response
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subscription-status-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Subscription Status Response
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#top-up-packs-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Top-up Packs Response
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#page-billing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Page Billing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#removed-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Removed Endpoints
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reuse-auth-stripe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reuse Auth and Stripe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Alternatives
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Alternatives
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alternatives/async-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Async Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alternatives/extraction-approaches/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extraction Approaches
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alternatives/frontend-state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend State Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alternatives/storage-options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Storage Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Api
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Api
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.api.api_v1.api`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/auth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.api.api_v1.endpoints.auth`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/auth_service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.services.auth_service`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/celery_app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.core.celery_app`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/clients/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.core.clients`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.core.config`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/document_service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.services.document_service`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/documents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.api.api_v1.endpoints.documents`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/extraction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.tasks.extraction`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/flatted/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `frontend.node_modules.flatted.python.flatted`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/health/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.api.api_v1.endpoints.health`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/main/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.main`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/payment_service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.services.payment_service`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/payments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.api.api_v1.endpoints.payments`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.data_pipeline.processing`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/redis_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.core.redis_client`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.api.api_v1.endpoints.sse`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/statistics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.api.api_v1.endpoints.statistics`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/statistics_service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.services.statistics_service`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.data_pipeline.storage`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supabase_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference: `backend.data_pipeline.supabase_client`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/backend-components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend Components Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/data-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Flow Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/frontend-components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend Components Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/infrastructure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infrastructure Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/system-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assumptions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Assumptions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assumptions/data-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Model Assumptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assumptions/subscription-limits/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subscription Limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assumptions/traffic-and-scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Traffic and Scaling Assumptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assumptions/user-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Workflow Assumptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functionality
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Functionality
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functionality/async-task-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous Task Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functionality/authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication Functionality
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functionality/batch-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Batch Processing with Mistral AI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functionality/document-extraction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Document Extraction Functionality
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functionality/file-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Management Functionality
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functionality/historical-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Historical Data Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functionality/subscription-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stripe Integration & Billing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quickstart Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart Guides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/local-docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart: Local Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/local-terminal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart: Local Terminal (Linux/Conda)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/vps-production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart: VPS Production (Docker)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reuse Auth Stripe
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reuse Auth Stripe
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reuse-auth-stripe/copy-and-adapt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Copy and Adapt the Auth and Billing Code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reuse-auth-stripe/one-time-credits/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optional: Add One-Time Credits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reuse-auth-stripe/stripe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configure Stripe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reuse-auth-stripe/supabase-google/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configure Supabase and Google Authentication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reuse-auth-stripe/testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test the Auth and Stripe Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setups
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Setups
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_12_1" id="__nav_12_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_12_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    External
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setups/external/email-verification-supabase/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Email Verification Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setups/external/mistral-ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mistral AI Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setups/external/password-reset-supabase/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Password Reset Setup Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setups/external/stripe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stripe Setup Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setups/external/supabase-database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Supabase Database Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_12_2" id="__nav_12_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Internal
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_12_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Internal
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setups/internal/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker Setup Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setups/internal/domain-ssl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Domain and SSL Setup Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setups/internal/environment-switching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local vs Production Testing Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setups/internal/local-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local Development Setup (Non-Docker)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setups/internal/nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx Configuration Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#base-urls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base URLs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Endpoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#health-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Health Check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-user-registration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. User Registration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-user-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. User Login
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-google-oauth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Google OAuth
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-user-logout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. User Logout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-password-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Password Reset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-upload-pdf-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Upload PDF Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-upload-image-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Upload Image Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-extract-text-from-single-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Extract Text from Single Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-extract-multiple-images-async" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Extract Multiple Images (Async)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-get-page-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Get Page Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-export-current-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Export Current Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-get-subscription-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Get Subscription Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-get-subscription-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Get Subscription Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-create-checkout-session-subscription" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Create Checkout Session (Subscription)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-update-subscription" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Update Subscription
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-cancel-subscription" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Cancel Subscription
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-create-billing-portal-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Create Billing Portal Session
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-top-up-page-packs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Top-up Page Packs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19-stripe-webhook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Stripe Webhook
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20-sse-task-stream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. SSE Task Stream
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-endpoints-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API Endpoints Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#response-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Response Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#login-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Login Response
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upload-response-single-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Upload Response (single page)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upload-response-multi-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Upload Response (multi-page)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract-image-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extract Image Response
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract-multiple-images-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extract Multiple Images Response
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subscription-status-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Subscription Status Response
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#top-up-packs-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Top-up Packs Response
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#page-billing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Page Billing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#removed-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Removed Endpoints
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="nolain-ocr-backend-api-usage">Nolain OCR Backend API Usage</h1>
+<p>This guide provides detailed information on how to interact with the Nolain OCR Backend API.</p>
+<h2 id="base-urls">Base URLs</h2>
+<table>
+<thead>
+<tr>
+<th>Environment</th>
+<th>Base URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Local Terminal</strong> (uvicorn on :8000)</td>
+<td><code>http://localhost:8000</code></td>
+</tr>
+<tr>
+<td><strong>Local Docker</strong> (nginx)</td>
+<td><code>http://localhost/api</code></td>
+</tr>
+<tr>
+<td><strong>VPS / Production</strong></td>
+<td><code>https://nolainocr.com/api</code></td>
+</tr>
+</tbody>
+</table>
+<p>When using Docker or production, all API routes are prefixed with <code>/api</code> (nginx strips the prefix before forwarding to the backend). Exceptions: <code>/webhook</code> and <code>/health</code> are routed directly without the <code>/api</code> prefix.</p>
+<p>Do <strong>not</strong> call <code>http://localhost/topup-packs</code> without the <code>/api</code> prefix when using Docker; that hits the frontend, not the backend.</p>
+<h2 id="authentication">Authentication</h2>
+<p>Most endpoints require authentication via request headers:</p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>X-Access-Token</code></td>
+<td>Supabase JWT access token (preferred)</td>
+</tr>
+<tr>
+<td><code>X-User-Id</code></td>
+<td>User UUID (fallback if token unavailable)</td>
+</tr>
+</tbody>
+</table>
+<p>Obtain the access token from the <code>POST /login</code> or <code>POST /auth/session</code> response.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-bash">curl -X GET &quot;{{BASE_URL}}/subscription-status&quot; \
+  -H &quot;X-Access-Token: your_jwt_token&quot; \
+  -H &quot;X-User-Id: your_user_id&quot;
+</code></pre>
+<hr />
+<h2 id="endpoints">Endpoints</h2>
+<h3 id="health-check">Health Check</h3>
+<pre><code class="language-bash">curl &quot;{{BASE_URL}}/&quot;
+</code></pre>
+<p>Returns <code>{"message": "Nolain OCR API is running"}</code>.</p>
+<hr />
+<h3 id="1-user-registration">1. User Registration</h3>
+<pre><code class="language-bash">curl -X POST &quot;{{BASE_URL}}/register&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d '{
+    &quot;email&quot;: &quot;user@example.com&quot;,
+    &quot;password&quot;: &quot;your_password&quot;,
+    &quot;full_name&quot;: &quot;John Doe&quot;
+  }'
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>email</code></td>
+<td>Yes</td>
+<td>User email address</td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>Yes</td>
+<td>User password</td>
+</tr>
+<tr>
+<td><code>full_name</code></td>
+<td>No</td>
+<td>User's full name</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="2-user-login">2. User Login</h3>
+<pre><code class="language-bash">curl -X POST &quot;{{BASE_URL}}/login&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d '{
+    &quot;email&quot;: &quot;user@example.com&quot;,
+    &quot;password&quot;: &quot;your_password&quot;
+  }'
+</code></pre>
+<p>Returns user ID, access token, and email confirmation status.</p>
+<hr />
+<h3 id="3-google-oauth">3. Google OAuth</h3>
+<p><strong>Get redirect URL:</strong></p>
+<pre><code class="language-bash">curl &quot;{{BASE_URL}}/auth/google?redirect_to=https://nolainocr.com/auth/callback&quot;
+</code></pre>
+<p><strong>Verify session after OAuth callback:</strong></p>
+<pre><code class="language-bash">curl -X POST &quot;{{BASE_URL}}/auth/session&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d '{
+    &quot;access_token&quot;: &quot;token_from_oauth&quot;,
+    &quot;refresh_token&quot;: &quot;refresh_token_from_oauth&quot;
+  }'
+</code></pre>
+<hr />
+<h3 id="4-user-logout">4. User Logout</h3>
+<pre><code class="language-bash">curl -X POST &quot;{{BASE_URL}}/logout&quot; \
+  -H &quot;X-Access-Token: your_jwt_token&quot; \
+  -H &quot;X-User-Id: your_user_id&quot;
+</code></pre>
+<p>Cleans up all uploaded files for the user and clears the session.</p>
+<hr />
+<h3 id="5-password-reset">5. Password Reset</h3>
+<p><strong>Request reset email:</strong></p>
+<pre><code class="language-bash">curl -X POST &quot;{{BASE_URL}}/reset-password&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d '{&quot;email&quot;: &quot;user@example.com&quot;}'
+</code></pre>
+<p><strong>Update password with tokens from email:</strong></p>
+<pre><code class="language-bash">curl -X POST &quot;{{BASE_URL}}/update-password&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d '{
+    &quot;password&quot;: &quot;new_password&quot;,
+    &quot;access_token&quot;: &quot;token_from_reset_email&quot;,
+    &quot;refresh_token&quot;: &quot;refresh_token_from_reset_email&quot;
+  }'
+</code></pre>
+<hr />
+<h3 id="6-upload-pdf-files">6. Upload PDF Files</h3>
+<pre><code class="language-bash">curl -X POST &quot;{{BASE_URL}}/upload_pdf&quot; \
+  -H &quot;X-Access-Token: your_jwt_token&quot; \
+  -H &quot;X-User-Id: your_user_id&quot; \
+  -F &quot;files=@/path/to/document.pdf&quot;
+</code></pre>
+<p>Multiple files:</p>
+<pre><code class="language-bash">curl -X POST &quot;{{BASE_URL}}/upload_pdf&quot; \
+  -H &quot;X-Access-Token: your_jwt_token&quot; \
+  -H &quot;X-User-Id: your_user_id&quot; \
+  -F &quot;files=@/path/to/doc1.pdf&quot; \
+  -F &quot;files=@/path/to/doc2.pdf&quot;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>files</code></td>
+<td>Yes</td>
+<td>One or more PDF files (multipart/form-data)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response:</strong>
+- Single page: <code>file_id</code> is the filename (e.g., <code>"image.jpg"</code>)
+- Multiple pages: <code>file_id</code> is a folder name (e.g., <code>"upload_userid_timestamp"</code>)
+- PDFs are converted to <code>page_N.jpg</code> images automatically</p>
+<p><strong>Page limits (enforced at upload):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Pages/Document</th>
+<th>Pages/Month</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Free</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Pro</td>
+<td>50</td>
+<td>1,500</td>
+</tr>
+<tr>
+<td>Pro Plus</td>
+<td>200</td>
+<td>10,000</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="7-upload-image-files">7. Upload Image Files</h3>
+<pre><code class="language-bash">curl -X POST &quot;{{BASE_URL}}/upload_image&quot; \
+  -H &quot;X-Access-Token: your_jwt_token&quot; \
+  -H &quot;X-User-Id: your_user_id&quot; \
+  -F &quot;files=@/path/to/image.jpg&quot;
+</code></pre>
+<p>Same behavior as PDF upload but for image files directly (<code>.png</code>, <code>.jpg</code>, <code>.jpeg</code>).</p>
+<hr />
+<h3 id="8-extract-text-from-single-image">8. Extract Text from Single Image</h3>
+<p>Synchronous extraction — returns results immediately.</p>
+<pre><code class="language-bash">curl -X POST &quot;{{BASE_URL}}/extract_image&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -H &quot;X-Access-Token: your_jwt_token&quot; \
+  -H &quot;X-User-Id: your_user_id&quot; \
+  -d '{
+    &quot;file_id&quot;: &quot;your_file_id_from_upload&quot;,
+    &quot;extraction_mode&quot;: &quot;fast_extraction&quot;,
+    &quot;user_id&quot;: &quot;your_user_id&quot;
+  }'
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>file_id</code></td>
+<td>Yes</td>
+<td>Filename or folder path from upload</td>
+</tr>
+<tr>
+<td><code>extraction_mode</code></td>
+<td>Yes</td>
+<td><code>"fast_extraction"</code> (only mode available)</td>
+</tr>
+<tr>
+<td><code>user_id</code></td>
+<td>Yes</td>
+<td>User ID (must match authenticated user)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="9-extract-multiple-images-async">9. Extract Multiple Images (Async)</h3>
+<p>Queues a Celery task and returns a <code>task_id</code>. Connect to the SSE stream for progress and results.</p>
+<pre><code class="language-bash">curl -X POST &quot;{{BASE_URL}}/extract_multiple_images&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -H &quot;X-Access-Token: your_jwt_token&quot; \
+  -H &quot;X-User-Id: your_user_id&quot; \
+  -d '{
+    &quot;folder_id&quot;: &quot;upload_userid_timestamp&quot;,
+    &quot;extraction_mode&quot;: &quot;fast_extraction&quot;,
+    &quot;user_id&quot;: &quot;your_user_id&quot;
+  }'
+</code></pre>
+<p><strong>With template groups</strong> (combine pages into multi-page documents):</p>
+<pre><code class="language-bash">curl -X POST &quot;{{BASE_URL}}/extract_multiple_images&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -H &quot;X-Access-Token: your_jwt_token&quot; \
+  -H &quot;X-User-Id: your_user_id&quot; \
+  -d '{
+    &quot;folder_id&quot;: &quot;upload_userid_timestamp&quot;,
+    &quot;extraction_mode&quot;: &quot;fast_extraction&quot;,
+    &quot;user_id&quot;: &quot;your_user_id&quot;,
+    &quot;template_group&quot;: [
+      [&quot;page_1.jpg&quot;, &quot;page_2.jpg&quot;],
+      [&quot;page_3.jpg&quot;]
+    ]
+  }'
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>folder_id</code></td>
+<td>Yes</td>
+<td>Folder from multi-page upload (must start with <code>upload_</code>)</td>
+</tr>
+<tr>
+<td><code>extraction_mode</code></td>
+<td>Yes</td>
+<td><code>"fast_extraction"</code></td>
+</tr>
+<tr>
+<td><code>user_id</code></td>
+<td>Yes</td>
+<td>User ID</td>
+</tr>
+<tr>
+<td><code>template_group</code></td>
+<td>No</td>
+<td>List of page groups (1–4 images per group)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response:</strong> Returns <code>task_id</code>. Listen for results:</p>
+<pre><code class="language-bash">curl -N &quot;{{BASE_URL}}/stream/{task_id}&quot;
+</code></pre>
+<p>SSE events contain <code>status</code> (<code>processing</code>, <code>completed</code>, <code>failed</code>), <code>progress</code> (0–100), and <code>results</code> on completion.</p>
+<hr />
+<h3 id="10-get-page-image">10. Get Page Image</h3>
+<p>Preview a specific page from an uploaded folder:</p>
+<pre><code class="language-bash">curl &quot;{{BASE_URL}}/get_page_image/upload_userid_timestamp/0&quot; \
+  -H &quot;X-Access-Token: your_jwt_token&quot;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>folder_id</code></td>
+<td>Folder name from upload</td>
+</tr>
+<tr>
+<td><code>page_number</code></td>
+<td>Zero-based page index (0, 1, 2, ...)</td>
+</tr>
+</tbody>
+</table>
+<p>Returns JPEG image with cache headers.</p>
+<hr />
+<h3 id="11-export-current-data">11. Export Current Data</h3>
+<p>Export the current extraction table as Excel or CSV:</p>
+<pre><code class="language-bash">curl -X POST &quot;{{BASE_URL}}/export_current_data&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -H &quot;X-Access-Token: your_jwt_token&quot; \
+  -d '{
+    &quot;data&quot;: {
+      &quot;patient_name&quot;: [&quot;John&quot;, &quot;Jane&quot;],
+      &quot;diagnosis&quot;: [&quot;Flu&quot;, &quot;Cold&quot;]
+    },
+    &quot;format&quot;: &quot;excel&quot;,
+    &quot;filename&quot;: &quot;my_export&quot;,
+    &quot;columns&quot;: [&quot;patient_name&quot;, &quot;diagnosis&quot;]
+  }'
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data</code></td>
+<td>Yes</td>
+<td>Columnar extraction data</td>
+</tr>
+<tr>
+<td><code>format</code></td>
+<td>No</td>
+<td><code>"excel"</code> or <code>"csv"</code> (default: <code>"excel"</code>)</td>
+</tr>
+<tr>
+<td><code>filename</code></td>
+<td>No</td>
+<td>Export filename (default: <code>"extraction"</code>)</td>
+</tr>
+<tr>
+<td><code>columns</code></td>
+<td>No</td>
+<td>Subset of columns to include</td>
+</tr>
+</tbody>
+</table>
+<p>Returns file download. JSON export is handled client-side.</p>
+<hr />
+<h3 id="12-get-subscription-status">12. Get Subscription Status</h3>
+<pre><code class="language-bash">curl &quot;{{BASE_URL}}/subscription-status&quot; \
+  -H &quot;X-Access-Token: your_jwt_token&quot; \
+  -H &quot;X-User-Id: your_user_id&quot;
+</code></pre>
+<p>Returns plan tier, usage, limits, top-up credit balance, and Stripe subscription details.</p>
+<hr />
+<h3 id="13-get-subscription-limits">13. Get Subscription Limits</h3>
+<pre><code class="language-bash">curl &quot;{{BASE_URL}}/subscription-limits&quot;
+</code></pre>
+<p>No auth required. Returns limits and pricing for all tiers.</p>
+<hr />
+<h3 id="14-create-checkout-session-subscription">14. Create Checkout Session (Subscription)</h3>
+<pre><code class="language-bash">curl -X POST &quot;{{BASE_URL}}/create-checkout-session&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -H &quot;X-Access-Token: your_jwt_token&quot; \
+  -d '{
+    &quot;user_id&quot;: &quot;your_user_id&quot;,
+    &quot;price_id&quot;: &quot;price_xxx&quot;
+  }'
+</code></pre>
+<p>Returns Stripe Checkout URL for subscription purchase.</p>
+<hr />
+<h3 id="15-update-subscription">15. Update Subscription</h3>
+<pre><code class="language-bash">curl -X POST &quot;{{BASE_URL}}/update-subscription&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -H &quot;X-Access-Token: your_jwt_token&quot; \
+  -d '{
+    &quot;user_id&quot;: &quot;your_user_id&quot;,
+    &quot;new_price_id&quot;: &quot;price_xxx&quot;
+  }'
+</code></pre>
+<p>Upgrades (Pro → Pro+) take effect immediately. Downgrades are scheduled at period end.</p>
+<hr />
+<h3 id="16-cancel-subscription">16. Cancel Subscription</h3>
+<pre><code class="language-bash">curl -X POST &quot;{{BASE_URL}}/cancel-subscription&quot; \
+  -H &quot;X-Access-Token: your_jwt_token&quot; \
+  -H &quot;X-User-Id: your_user_id&quot;
+</code></pre>
+<p>Schedules cancellation at the end of the current billing period.</p>
+<hr />
+<h3 id="17-create-billing-portal-session">17. Create Billing Portal Session</h3>
+<pre><code class="language-bash">curl -X POST &quot;{{BASE_URL}}/create-billing-portal-session&quot; \
+  -H &quot;X-Access-Token: your_jwt_token&quot; \
+  -H &quot;X-User-Id: your_user_id&quot;
+</code></pre>
+<p>Returns URL to Stripe Customer Portal for payment method and subscription management.</p>
+<hr />
+<h3 id="18-top-up-page-packs">18. Top-up Page Packs</h3>
+<p><strong>List available packs:</strong></p>
+<pre><code class="language-bash">curl &quot;{{BASE_URL}}/topup-packs&quot;
+</code></pre>
+<p><strong>Create top-up checkout:</strong></p>
+<pre><code class="language-bash">curl -X POST &quot;{{BASE_URL}}/create-topup-checkout&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -H &quot;X-Access-Token: your_jwt_token&quot; \
+  -d '{
+    &quot;user_id&quot;: &quot;your_user_id&quot;,
+    &quot;pack_id&quot;: &quot;topup_5&quot;
+  }'
+</code></pre>
+<p><strong>Confirm top-up after payment:</strong></p>
+<pre><code class="language-bash">curl -X POST &quot;{{BASE_URL}}/confirm-topup-checkout&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -H &quot;X-Access-Token: your_jwt_token&quot; \
+  -d '{
+    &quot;session_id&quot;: &quot;cs_test_xxx&quot;
+  }'
+</code></pre>
+<p>Top-up credits are consumed after monthly plan quota is exhausted. Free-tier users can also purchase top-ups.</p>
+<hr />
+<h3 id="19-stripe-webhook">19. Stripe Webhook</h3>
+<p>Called by Stripe, not by your application:</p>
+<pre><code>POST /webhook
+</code></pre>
+<p>In local development:</p>
+<pre><code class="language-bash">stripe listen --forward-to localhost/webhook
+</code></pre>
+<hr />
+<h3 id="20-sse-task-stream">20. SSE Task Stream</h3>
+<p>Real-time extraction progress:</p>
+<pre><code class="language-bash">curl -N &quot;{{BASE_URL}}/stream/{task_id}&quot;
+</code></pre>
+<p>No auth required. Events are JSON with <code>status</code>, <code>progress</code>, and <code>results</code> fields.</p>
+<hr />
+<h2 id="api-endpoints-summary">API Endpoints Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Endpoint</th>
+<th>Auth</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET</code></td>
+<td><code>/</code></td>
+<td>No</td>
+<td>Health check</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/register</code></td>
+<td>No</td>
+<td>User registration</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/login</code></td>
+<td>No</td>
+<td>User authentication</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/auth/google</code></td>
+<td>No</td>
+<td>Google OAuth redirect URL</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/auth/session</code></td>
+<td>No</td>
+<td>Verify OAuth tokens</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/logout</code></td>
+<td>Yes</td>
+<td>Logout and file cleanup</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/reset-password</code></td>
+<td>No</td>
+<td>Request password reset</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/update-password</code></td>
+<td>No</td>
+<td>Update password with tokens</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/upload_pdf</code></td>
+<td>Yes</td>
+<td>Upload PDF(s)</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/upload_image</code></td>
+<td>Yes</td>
+<td>Upload image(s)</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/get_page_image/{folder_id}/{page_number}</code></td>
+<td>Optional</td>
+<td>Page preview image</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/extract_image</code></td>
+<td>Yes</td>
+<td>Sync single-image extraction</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/extract_multiple_images</code></td>
+<td>Yes</td>
+<td>Async batch extraction</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/export_current_data</code></td>
+<td>Yes</td>
+<td>Export table as Excel/CSV</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/subscription-status</code></td>
+<td>Yes</td>
+<td>Subscription and usage</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/subscription-limits</code></td>
+<td>No</td>
+<td>Plan limits for all tiers</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/create-checkout-session</code></td>
+<td>Yes</td>
+<td>Stripe subscription checkout</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/update-subscription</code></td>
+<td>Yes</td>
+<td>Upgrade/downgrade plan</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/cancel-subscription</code></td>
+<td>Yes</td>
+<td>Cancel subscription</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/create-billing-portal-session</code></td>
+<td>Yes</td>
+<td>Stripe billing portal</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/topup-packs</code></td>
+<td>No</td>
+<td>Top-up pack catalog</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/create-topup-checkout</code></td>
+<td>Yes</td>
+<td>Top-up Stripe checkout</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/confirm-topup-checkout</code></td>
+<td>Yes</td>
+<td>Confirm top-up payment</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/webhook</code></td>
+<td>Stripe sig</td>
+<td>Stripe webhook events</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/stream/{task_id}</code></td>
+<td>No</td>
+<td>SSE extraction progress</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="response-examples">Response Examples</h2>
+<h3 id="login-response">Login Response</h3>
+<pre><code class="language-json">{
+  &quot;success&quot;: true,
+  &quot;user&quot;: {
+    &quot;id&quot;: &quot;user_uuid&quot;,
+    &quot;email&quot;: &quot;user@example.com&quot;,
+    &quot;access_token&quot;: &quot;jwt_token&quot;,
+    &quot;email_confirmed&quot;: true
+  }
+}
+</code></pre>
+<h3 id="upload-response-single-page">Upload Response (single page)</h3>
+<pre><code class="language-json">{
+  &quot;success&quot;: true,
+  &quot;message&quot;: &quot;File uploaded successfully (1 page(s))&quot;,
+  &quot;filename&quot;: &quot;document.pdf&quot;,
+  &quot;file_id&quot;: &quot;document.pdf&quot;,
+  &quot;page_limit_exceeded&quot;: false
+}
+</code></pre>
+<h3 id="upload-response-multi-page">Upload Response (multi-page)</h3>
+<pre><code class="language-json">{
+  &quot;success&quot;: true,
+  &quot;message&quot;: &quot;Files uploaded successfully (5 file(s), 5 page(s))&quot;,
+  &quot;filename&quot;: &quot;document.pdf&quot;,
+  &quot;file_id&quot;: &quot;upload_userid_timestamp&quot;,
+  &quot;page_limit_exceeded&quot;: false
+}
+</code></pre>
+<h3 id="extract-image-response">Extract Image Response</h3>
+<pre><code class="language-json">{
+  &quot;content&quot;: {
+    &quot;patient_name&quot;: &quot;John Doe&quot;,
+    &quot;date_of_birth&quot;: &quot;15/03/1990&quot;,
+    &quot;diagnosis&quot;: &quot;Common cold&quot;,
+    &quot;treatment_days&quot;: 3
+  },
+  &quot;success&quot;: true
+}
+</code></pre>
+<h3 id="extract-multiple-images-response">Extract Multiple Images Response</h3>
+<pre><code class="language-json">{
+  &quot;success&quot;: true,
+  &quot;total_files&quot;: 5,
+  &quot;task_id&quot;: &quot;celery-task-uuid&quot;,
+  &quot;results&quot;: null
+}
+</code></pre>
+<p>Results arrive via SSE on <code>/stream/{task_id}</code>:</p>
+<pre><code class="language-json">{
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;progress&quot;: 100,
+  &quot;results&quot;: {
+    &quot;patient_name&quot;: [&quot;John Doe&quot;, &quot;Jane Smith&quot;],
+    &quot;diagnosis&quot;: [&quot;Flu&quot;, &quot;Cold&quot;],
+    &quot;filenames&quot;: [&quot;page_1.jpg&quot;, &quot;page_2.jpg&quot;]
+  }
+}
+</code></pre>
+<h3 id="subscription-status-response">Subscription Status Response</h3>
+<pre><code class="language-json">{
+  &quot;success&quot;: true,
+  &quot;plan_tier&quot;: &quot;pro&quot;,
+  &quot;status&quot;: &quot;active&quot;,
+  &quot;pages_per_document&quot;: 50,
+  &quot;pages_per_month&quot;: 1500,
+  &quot;topup_page_credits&quot;: 25,
+  &quot;current_period_end&quot;: &quot;2025-01-27T10:30:00&quot;,
+  &quot;subscription&quot;: {
+    &quot;user_id&quot;: &quot;user_uuid&quot;,
+    &quot;plan_tier&quot;: &quot;pro&quot;,
+    &quot;status&quot;: &quot;active&quot;,
+    &quot;total_pages_processed&quot;: 450,
+    &quot;topup_page_credits&quot;: 25,
+    &quot;stripe_customer_id&quot;: &quot;cus_abc123&quot;,
+    &quot;stripe_subscription_id&quot;: &quot;sub_def456&quot;,
+    &quot;current_period_start&quot;: &quot;2024-12-27T10:30:00&quot;,
+    &quot;current_period_end&quot;: &quot;2025-01-27T10:30:00&quot;,
+    &quot;cancel_at_period_end&quot;: false
+  }
+}
+</code></pre>
+<h3 id="top-up-packs-response">Top-up Packs Response</h3>
+<pre><code class="language-json">{
+  &quot;success&quot;: true,
+  &quot;packs&quot;: [
+    {
+      &quot;id&quot;: &quot;topup_2&quot;,
+      &quot;amount_usd&quot;: 2,
+      &quot;price_per_page&quot;: 0.35,
+      &quot;pages&quot;: 5
+    },
+    {
+      &quot;id&quot;: &quot;topup_5&quot;,
+      &quot;amount_usd&quot;: 5,
+      &quot;price_per_page&quot;: 0.30,
+      &quot;pages&quot;: 16
+    }
+  ]
+}
+</code></pre>
+<hr />
+<h2 id="page-billing">Page Billing</h2>
+<p>Pages are billed after extraction completes:</p>
+<ol>
+<li>Monthly plan quota is consumed first</li>
+<li>Top-up credits are used when monthly quota is exhausted</li>
+<li>Returns <code>402 Payment Required</code> if both pools are empty</li>
+</ol>
+<p>Admin users (<code>ADMIN_USER_ID</code> env var) bypass all limits.</p>
+<h2 id="removed-endpoints">Removed Endpoints</h2>
+<p>The following endpoints existed in earlier versions but are no longer available:</p>
+<table>
+<thead>
+<tr>
+<th>Endpoint</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET /historical_names/{user_id}</code></td>
+<td>Removed</td>
+</tr>
+<tr>
+<td><code>GET /export_historical/{user_id}/{name}</code></td>
+<td>Removed — use <code>POST /export_current_data</code></td>
+</tr>
+<tr>
+<td><code>POST /numerical-statistics</code></td>
+<td>Removed</td>
+</tr>
+<tr>
+<td><code>POST /categorical-*-statistics</code></td>
+<td>Removed</td>
+</tr>
+<tr>
+<td><code>POST /pearson-correlations</code></td>
+<td>Removed</td>
+</tr>
+<tr>
+<td><code>GET /task-updates/{task_id}</code></td>
+<td>Renamed to <code>GET /stream/{task_id}</code></td>
+</tr>
+<tr>
+<td><code>GET /subscription-status/{user_id}</code></td>
+<td>Now <code>GET /subscription-status</code> (auth header)</td>
+</tr>
+<tr>
+<td><code>POST /cancel-subscription/{user_id}</code></td>
+<td>Now <code>POST /cancel-subscription</code> (auth header)</td>
+</tr>
+</tbody>
+</table>
+<p>Extraction modes <code>new_historical</code> and <code>update_historical</code> are no longer supported. Only <code>fast_extraction</code> is available.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
